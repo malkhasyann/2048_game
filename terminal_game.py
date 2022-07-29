@@ -7,7 +7,7 @@ SIZE = 4  # grid size: SIZE x SIZE
 MATRIX = [[0 for _ in range(SIZE)] for _ in range(SIZE)]  # the grid
 SCORE = 0  # game score
 
-# TODO: in is_gameover function are implicitly called combine_left or combine_right functions which cause a bug of score
+# TODO: in is_gameover func combine_left/right is called which causes a bug of the score
 
 def print_matrix(arr):
     """
