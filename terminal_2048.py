@@ -50,11 +50,28 @@ def move_zeros_right(row):
 
 class Matrix:
     def __init__(self, size=4):
+        """
+        Constructor of Matrix
+
+        Parameters:
+             self(Matrix)
+             size(int): size of the matrix
+        Returns:
+            None
+        """
         self.size = size
         self.data = [[0 for _ in range(size)] for _ in range(size)]
         self.score = 0
 
     def display(self):
+        """
+        Displays the matrix
+
+        Parameters:
+             self(Matrix)
+        Returns:
+            None
+        """
         print(f'Your score: {self.score}\n')
         sep = '|'
         floor = '-----'
@@ -266,7 +283,8 @@ class Matrix:
 
 
 def game_loop():
-    matrix = Matrix()
+    size = int(input('Set the size of the grid: '))
+    matrix = Matrix(size=size)
     matrix.add_cell()
     prev_matrix = Matrix()
     prev_matrix.data = copy.deepcopy(matrix.data)
