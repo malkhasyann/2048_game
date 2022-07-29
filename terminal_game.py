@@ -7,6 +7,7 @@ SIZE = 4  # grid size: SIZE x SIZE
 MATRIX = [[0 for _ in range(SIZE)] for _ in range(SIZE)]  # the grid
 SCORE = 0  # game score
 
+# TODO: in is_gameover function are implicitly called combine_left or combine_right functions which cause a bug of score
 
 def print_matrix(arr):
     """
@@ -117,7 +118,7 @@ def move_zeros_left(arr):
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
 
 
-def combine_left(arr):
+def combine_left(arr, score=SCORE):
     """
     Combines the cells of a single row to the left if possible.
 
