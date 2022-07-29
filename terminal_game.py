@@ -79,11 +79,148 @@ def add_cell(arr):
     except IndexError:
         gameover()
 
+# Moving cells
+
+def move_zeros_right(arr):
+    """
+    Moves all zeros in the array to the end
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for _ in range(len(arr) - 1):
+        for i in range(len(arr) - 1):
+            if arr[i] == 0:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+
+
+def move_zeros_left(arr):
+    """
+    Moves all zeros in the array to the start
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for _ in range(len(arr) - 1):
+        for i in range(len(arr) - 1, 0, -1):
+            if arr[i] == 0:
+                arr[i], arr[i - 1] = arr[i - 1], arr[i]
+
+def combine_left(arr):
+    """
+    Combines the cells of a single row to the left if possible.
+
+    Parameters:
+        arr(list): the matrix
+    Returns:
+        None
+    """
+    global SCORE
+
+    move_zeros_right(arr)
+    for i in range(len(arr) - 1):
+        if arr[i] == arr[i + 1]:
+            arr[i] *= 2
+            arr[i + 1] = 0
+            SCORE += arr[i]
+    move_zeros_right(arr)
+
+
+def combine_right(arr):
+    """
+    Combines the cells of a single row to the right if possible.
+
+    Parameters:
+        arr(list): the matrix
+    Returns:
+        None
+    """
+    global SCORE
+
+    move_zeros_left(arr)
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] == arr[i + 1]:
+            arr[i] *= 2
+            arr[i + 1] = 0
+            SCORE += arr[i]
+    move_zeros_left(arr)
+
+def move_left(arr):
+    """
+    Move the grid to the left
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for i in range(len(arr)):
+        combine_left(arr[i])
+
+
+def move_right(arr):
+    """
+    Move the grid to the right
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for i in range(len(arr)):
+        combine_right(arr[i])
+
+def move_up(arr):
+    """
+    Move the grid to the up
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for j in range(len(arr[0])):
+        # get the j-th column
+        current_col = []
+        for i in range(len(arr)):
+            current_col.append(arr[i][j])
+
+        # combine the j-th column
+        combine_left(current_col)
+        for i in range(len(arr)):
+            arr[i][j] = current_col[i]
+
+
+def move_down(arr):
+    """
+    Move the grid to the down
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        None
+    """
+    for j in range(len(arr[0])):
+        # get the j-th column
+        current_col = []
+        for i in range(len(arr)):
+            current_col.append(arr[i][j])
+
+        # combine the j-th column
+        combine_right(current_col)
+        for i in range(len(arr)):
+            arr[i][j] = current_col[i]
+
 # Game status
 
 def gameover():
     print('*** GameOver ***')
     print(f'Your Score: {SCORE}')
+    sys.exit()
 
 def is_gameover():
     pass
