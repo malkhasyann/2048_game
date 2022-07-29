@@ -26,7 +26,7 @@ def print_matrix(arr):
     print()
     for i in range(len(arr)):
         for j in range(len(arr)):
-            print(arr[i][j], f' {sep}', end='')
+            print(arr[i][j], f' {sep} ', end='')
         print()
     for i in range(SIZE):
         print(floor, end='')
@@ -150,9 +150,9 @@ def combine_right(arr):
 
     move_zeros_left(arr)
     for i in range(len(arr) - 1, 0, -1):
-        if arr[i] == arr[i + 1]:
+        if arr[i] == arr[i - 1]:
             arr[i] *= 2
-            arr[i + 1] = 0
+            arr[i - 1] = 0
             SCORE += arr[i]
     move_zeros_left(arr)
 
@@ -229,8 +229,7 @@ def move_down(arr):
 
 def gameover():
     """
-    Game Over function for application termination
-    outside the global loop.
+    Game Over function for application termination.
 
     Parameters:
 
@@ -280,3 +279,40 @@ def is_won(arr):
         if 2048 in arr[i]:
             return True
     return False
+
+
+# the game loop
+
+def game_loop():
+    add_cell(MATRIX)
+    prev_matrix = copy.deepcopy(MATRIX)
+    while True:
+        print_matrix(MATRIX)
+
+        if is_won(MATRIX):
+            print('You reached 2048 and won!')
+            print(f'Your Score: {SCORE}')
+            answer = input('Would you like to continue? [y/n]')
+            if answer.lower() == 'n':
+                sys.exit()
+
+        if is_gameover():
+            gameover()
+
+        move = input()
+        if move == 'a':
+            move_left(MATRIX)
+        if move == 'w':
+            move_up(MATRIX)
+        if move == 'd':
+            move_right(MATRIX)
+        if move == 's':
+            move_down(MATRIX)
+
+        if MATRIX != prev_matrix:
+            add_cell(MATRIX)
+            prev_matrix = copy.deepcopy(MATRIX)
+
+
+if __name__ == '__main__':
+    game_loop()
