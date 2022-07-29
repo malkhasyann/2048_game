@@ -3,9 +3,9 @@ import sys
 import copy
 
 # states
-SIZE = 4    # grid size: SIZE x SIZE
-MATRIX = [[0 for _ in range(SIZE)] for _ in range(SIZE)]    # the grid
-SCORE = 0   # game score
+SIZE = 4  # grid size: SIZE x SIZE
+MATRIX = [[0 for _ in range(SIZE)] for _ in range(SIZE)]  # the grid
+SCORE = 0  # game score
 
 
 def print_matrix(arr):
@@ -24,13 +24,14 @@ def print_matrix(arr):
     for i in range(SIZE):
         print(floor, end='')
     print()
-    for i in range(len(arr))
+    for i in range(len(arr)):
         for j in range(len(arr)):
             print(arr[i][j], f' {sep}', end='')
         print()
     for i in range(SIZE):
         print(floor, end='')
     print()
+
 
 # Generating cells
 
@@ -50,17 +51,19 @@ def find_empty_cells(arr):
                 empty_cells.append((i, j))
     return empty_cells
 
+
 def generate_number():
     """
     Randomly returns 2 or 4
 
-    Paramters:
-        pass
+    Parameters:
+
     Returns:
         value(int): random number
     """
     value = 2 if random.random() <= 0.72 else 4
     return value
+
 
 def add_cell(arr):
     """
@@ -79,11 +82,13 @@ def add_cell(arr):
     except IndexError:
         gameover()
 
+
 # Moving cells
 
 def move_zeros_right(arr):
     """
     Moves all zeros in the array to the end
+    (Utility function for combinations)
 
     Parameters:
          arr(list): the matrix
@@ -99,6 +104,7 @@ def move_zeros_right(arr):
 def move_zeros_left(arr):
     """
     Moves all zeros in the array to the start
+    (Utility function for combinations)
 
     Parameters:
          arr(list): the matrix
@@ -109,6 +115,7 @@ def move_zeros_left(arr):
         for i in range(len(arr) - 1, 0, -1):
             if arr[i] == 0:
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
+
 
 def combine_left(arr):
     """
@@ -149,6 +156,7 @@ def combine_right(arr):
             SCORE += arr[i]
     move_zeros_left(arr)
 
+
 def move_left(arr):
     """
     Move the grid to the left
@@ -173,6 +181,7 @@ def move_right(arr):
     """
     for i in range(len(arr)):
         combine_right(arr[i])
+
 
 def move_up(arr):
     """
@@ -215,15 +224,59 @@ def move_down(arr):
         for i in range(len(arr)):
             arr[i][j] = current_col[i]
 
+
 # Game status
 
 def gameover():
+    """
+    Game Over function for application termination
+    outside the global loop.
+
+    Parameters:
+
+    Returns:
+        None
+    """
     print('*** GameOver ***')
     print(f'Your Score: {SCORE}')
     sys.exit()
 
-def is_gameover():
-    pass
 
-def is_won():
-    pass
+def is_gameover():
+    """
+    Checks whether the game is over or not.
+
+    Parameters:
+
+    Returns:
+        True if game is over, False otherwise
+    """
+    moved = copy.deepcopy(MATRIX)
+    move_left(moved)
+    if moved != MATRIX:
+        return False
+    move_right(moved)
+    if moved != MATRIX:
+        return False
+    move_up(moved)
+    if moved != MATRIX:
+        return False
+    move_down(moved)
+    if moved != MATRIX:
+        return False
+    return True
+
+
+def is_won(arr):
+    """
+    Checks whether the game is won.
+
+    Parameters:
+         arr(list): the matrix
+    Returns:
+        True if there is 2048 in the matrix, False otherwise
+    """
+    for i in range(len(arr)):
+        if 2048 in arr[i]:
+            return True
+    return False
