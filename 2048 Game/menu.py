@@ -27,14 +27,15 @@ class Ui_MainWindow(object):
                                   logo_pixmap.height())
         
         # edit help label
-        self.help_label = QtWidgets.QLabel(self.centralWidget)
+        self.help_label = QtWidgets.QLabel(self.centralwidget)
         self.help_label.setGeometry(QtCore.QRect(30, 470, 341, 50))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize
+        font.setPointSize(32)
         self.help_label.setFont(font)
-        self.help_label.setStyleSheet("color: rgb(180, 180, 180)")
+        self.help_label.setStyleSheet("color: rgb(190, 190, 190)")
         self.help_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.help_label.setText('USE:   "W, A, S, D"')
 
         self.button_play = QtWidgets.QPushButton(self.centralwidget)
         self.button_play.setGeometry(QtCore.QRect(40, 410, 263, 31))
