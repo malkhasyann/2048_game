@@ -18,13 +18,23 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        # edit
+        # edit big logo
         logo_pixmap = QPixmap(':/logos/logo300')
         self.picture_label = QtWidgets.QLabel(self.centralwidget)
         self.picture_label.setGeometry(QtCore.QRect(46, 50, 300, 300))
         self.picture_label.setPixmap(logo_pixmap)
         self.picture_label.resize(logo_pixmap.width(),
                                   logo_pixmap.height())
+        
+        # edit help label
+        self.help_label = QtWidgets.QLabel(self.centralWidget)
+        self.help_label.setGeometry(QtCore.QRect(30, 470, 341, 50))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize
+        self.help_label.setFont(font)
+        self.help_label.setStyleSheet("color: rgb(180, 180, 180)")
+        self.help_label.setAlignment(QtCore.Qt.AlignCenter)
 
         self.button_play = QtWidgets.QPushButton(self.centralwidget)
         self.button_play.setGeometry(QtCore.QRect(40, 410, 263, 31))
