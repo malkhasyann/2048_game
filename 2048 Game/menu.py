@@ -51,6 +51,7 @@ class Ui_MainWindow(object):
         self.grid_size.setAlignment(QtCore.Qt.AlignCenter)
         self.grid_size.setMinimum(3)
         self.grid_size.setMaximum(8)
+        self.grid_size.setValue(4)
         self.grid_size.setObjectName("grid_size")
         MainWindow.setCentralWidget(self.centralwidget)
 
