@@ -89,9 +89,8 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
         for i in range(len(self.matrix.data)):
             for j in range(len(self.matrix.data)):
                 value = self.matrix.data[i][j]
-                if value >= 4096:
-                    value = 4096
                 value = str(value) if str(value) != '0' else ''
+                
                 current_label = QLabel(value)
                 current_label.setAlignment(Qt.AlignCenter)
 
@@ -119,8 +118,6 @@ class StartWindow(QMainWindow, menu.Ui_MainWindow):
 
         self.setFixedWidth(400)
         self.setFixedHeight(560)
-
-
 
         # PlayWindow widgets styling
         self.setStyleSheet(f"background-color: #1b1b1b")
