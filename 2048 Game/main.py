@@ -58,13 +58,18 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
         self.update_grid()
 
     def keyPressEvent(self, e):
+        flag = False
         if e.key() == Qt.Key_A:
+            flag = True
             self.matrix.move_left()
         if e.key() == Qt.Key_D:
+            flag = True
             self.matrix.move_right()
         if e.key() == Qt.Key_S:
+            flag = True
             self.matrix.move_down()
         if e.key() == Qt.Key_W:
+            flag = True
             self.matrix.move_up()
 
         # if the matrix was changed update the grid
