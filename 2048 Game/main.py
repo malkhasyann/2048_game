@@ -146,6 +146,7 @@ widget = QStackedWidget()
 widget.addWidget(start_page)
 widget.setFixedWidth(400)
 widget.setFixedHeight(560)
+widget.setWindowTitle('2048')
 
 widget.show()
 
