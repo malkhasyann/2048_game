@@ -73,7 +73,7 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
             self.matrix.move_up()
 
         # if the matrix was changed update the grid
-        if self.matrix.data != self.matrix.prev_data:
+        if self.matrix.data != self.matrix.prev_data and flag:
             self.matrix.prev_data = copy.deepcopy(self.matrix.data)
             self.matrix.add_cell()
             self.update_grid()
