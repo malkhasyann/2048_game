@@ -55,7 +55,7 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
         # Create Matrix object
         self.matrix = game_engine.Matrix(size=grid_size)
         self.matrix.add_cell()
-        self.update_grid()
+        self.create_grid()
 
     def keyPressEvent(self, e):
         flag = False
@@ -90,16 +90,16 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
                                            f"color: black")
             self.label_score.setText('GAME OVER')
 
-    def update_grid(self):
+    def create_grid(self):
         for i in range(len(self.matrix.data)):
             for j in range(len(self.matrix.data)):
                 value = self.matrix.data[i][j]
                 value = str(value) if str(value) != '0' else ''
-                
+
                 current_label = QLabel(value)
                 current_label.setAlignment(Qt.AlignCenter)
 
-                color = colors.get(current_label.text(), colors['4096'])
+                color = colors.get(value, colors['4096'])
 
                 current_label.setStyleSheet("border: 2px solid black;"
                                             "border-radius: 10;"
@@ -107,6 +107,29 @@ class PlayWindow(QMainWindow, playground.Ui_MainWindow):
                                             "color: rgb(10, 10, 10)")
                 current_label.setFont(QFont('Arial', 100 // grid_size))
                 self.data_grid.addWidget(current_label, i, j)
+                # self.data_grid.itemAtPosition(i, j).setText(value)
+                # self.data_grid.itemAtPosition(i, j).setStyleSheet("border: 2px solid black;"
+                #                                                   "border-radius: 10;"
+                #                                                   f"background-color: {color};"
+                #                                                   "color: rgb(10, 10, 10)"
+                #                                                   )
+                # self.data_grid.itemAtPosition(i, j).setFont(QFont('Arial', 100 // grid_size))
+        self.score.setText(str(self.matrix.score))
+
+    def update_grid(self):
+        for i in range(len(self.matrix.data)):
+            for j in range(len(self.matrix.data)):
+                value = self.matrix.data[i][j]
+                value = str(value) if str(value) != '0' else ''
+
+                color = colors.get(value, colors['4096'])
+
+                self.data_grid.itemAtPosition(i, j).widget().setText(value)
+                self.data_grid.itemAtPosition(i, j).widget().setStyleSheet("border: 2px solid black;"
+                                                                  "border-radius: 10;"
+                                                                  f"background-color: {color};"
+                                                                  "color: rgb(10, 10, 10)")
+                self.data_grid.itemAtPosition(i, j).widget().setFont(QFont('Arial', 100 // grid_size))
         self.score.setText(str(self.matrix.score))
 
     def back_to_menu(self):
